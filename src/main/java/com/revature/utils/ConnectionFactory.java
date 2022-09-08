@@ -31,7 +31,7 @@ public class ConnectionFactory {
 
 	}
 
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		log.info("Attempting to get SQL connection object from PostgreSQL Driver");
 		Connection conn = null;
 		try {

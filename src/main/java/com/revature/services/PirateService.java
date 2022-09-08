@@ -14,4 +14,19 @@ public class PirateService {
 	public List<Pirate> getAllPirates(){
 		return pirateDAO.getAllInstances();
 	}
+
+	public boolean addPirate(Pirate testPirate) {
+		
+		return pirateDAO.create(testPirate);
+	}
+
+	public Pirate getPirateByEmail(String email) {
+		
+		return pirateDAO.readBy(email);
+	}
+
+	public boolean emailTaken(String email) {
+		
+		return pirateDAO.readBy(email)!=null;
+	}
 }
