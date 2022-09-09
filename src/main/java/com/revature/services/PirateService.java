@@ -25,8 +25,14 @@ public class PirateService {
 		return pirateDAO.readBy(email);
 	}
 
-	public boolean emailTaken(String email) {
+	public boolean recordExists(String email) {
 		
 		return pirateDAO.readBy(email)!=null;
 	}
+
+	public boolean passwordsMatch(String password, Pirate pirateAtTheGates) {
+		return pirateAtTheGates.getPassword().trim().equalsIgnoreCase(password.trim());
+	}
+
+	
 }

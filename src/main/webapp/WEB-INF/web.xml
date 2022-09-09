@@ -2,8 +2,8 @@
 
 <web-app>
 	<display-name>Pirate Supply Chain</display-name>
-
-    <!-- servlets -->
+	
+	<!-- servlets -->
 	<servlet>
 		<servlet-name>PirateController</servlet-name>
 		<display-name>PirateController</display-name>
@@ -29,11 +29,15 @@
 		<display-name>SignupController</display-name>
 		<servlet-class>com.revature.controllers.SignupController</servlet-class>
 	</servlet>
-	
-	
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<display-name>LoginController</display-name>
+		<servlet-class>com.revature.controllers.LoginController</servlet-class>
+	</servlet>
 
+	<!-- filters, for pages with sensitive info -->
 
-	<!-- end points -->
+	<!--end points servlets are mapped to -->
 
 	<servlet-mapping>
 
@@ -54,14 +58,28 @@
 
 		<servlet-name>LocationController</servlet-name>
 		<url-pattern>/stores</url-pattern>
-		
+
 	</servlet-mapping>
 	<servlet-mapping>
 
 		<servlet-name>SignupController</servlet-name>
 		<url-pattern>/register</url-pattern>
-		
+
 	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/login</url-pattern>
+
+	</servlet-mapping>
+
+	<!-- end points servlet filters are mapped to -->
 	
+	
+	<!-- make each session last at most 1 hr -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	
+	</session-config>
 
 </web-app>

@@ -26,7 +26,7 @@ public class SignupController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String signupPage = Templates.getSignup();
+		String signupPage = Templates.getSignupPage();
 		resp.setStatus(200);
 		resp.getWriter().write(signupPage);
 	}
@@ -43,9 +43,10 @@ public class SignupController extends HttpServlet {
 		// check email isn't already i
 		pirateService = new PirateService(new PirateDAO());
 
-		if (pirateService.emailTaken(email)) {
+		if (pirateService.recordExists(email)) {
 			resp.setStatus(412);
-			logger.log(LogLevel.DEBUG, "email taken");
+			logger.log(LogLevel.ERROR, "email taken");
+			
 			Map<String, String> error = new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
 
