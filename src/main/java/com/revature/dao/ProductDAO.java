@@ -41,6 +41,28 @@ public class ProductDAO {
 		return products;
 		
 	}
+
+	public Product read(String productName) {
+		String query = "select * from products where name = '"+productName+"'";
+		Product product = null;
+		
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);	
+			if(rs.next()) {
+				product = new Product(rs.getString("name"),rs.getDouble("price"),rs.getString("category"));
+				return product;
+			}
+			
+		} catch (SQLException e) {
+			
+			logger.log(LogLevel.ERROR, "ERROR WHILE TRYING TO RETRIEVE PRODUCT RECORD:\n\t\t"+e.getMessage());
+			return product;
+		}
+		
+		return product;
+	}
 	
 	
 }

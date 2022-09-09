@@ -35,4 +35,10 @@ public class InventoryService {
 		return (List<InventoryItem>) inventoryDAO.getAll();
 	}
 
+	public boolean restockInventory(String productName, int quantity, String storeName) {
+		InventoryItem ii = new InventoryItem(productName, quantity, storeName);
+		return inventoryDAO.update(ii);
+		
+	}
+
 }

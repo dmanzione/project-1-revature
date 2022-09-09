@@ -18,4 +18,9 @@ public class ProductService {
 		
 		return productDAO.readAll();
 	}
+
+	public boolean isSoldAtStores(String productName) {
+		return productDAO.read(productName)!=null;
+		
+	}
 }

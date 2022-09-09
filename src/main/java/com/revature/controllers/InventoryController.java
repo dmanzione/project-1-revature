@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.InventoryDAO;
+import com.revature.dao.ProductDAO;
 import com.revature.models.InventoryItem;
+import com.revature.models.Product;
 import com.revature.services.InventoryService;
 import com.revature.services.LocationService;
+import com.revature.services.ProductService;
 import com.revature.utils.CaptainsLogger;
 import com.revature.utils.CaptainsLogger.LogLevel;
 
@@ -23,6 +26,64 @@ public class InventoryController extends HttpServlet {
 	private InventoryService inventoryService;
 	private CaptainsLogger logger = CaptainsLogger.getLogger();
 
+
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ProductService productService = new ProductService(new ProductDAO());
+		resp.setContentType("application/json");
+		String productName = req.getParameter("productName");
+		int quantity = Integer.valueOf(req.getParameter("quantity"));
+		String storeName = req.getParameter("storeName");
+		inventoryService = new InventoryService(new InventoryDAO());
+		
+		if(!productService.isSoldAtStores(productName)) {
+
+			logger.log(LogLevel.ERROR, "attempt to replenish stock of product with unknown name");
+
+			Map<String, String> error = new HashMap<String, String>() {
+				private static final long serialVersionUID = 1L;
+
+				{
+					put("error", "We have no products registered with that name. Did you mean to introduce a new product?");
+				}
+			};
+			ObjectMapper mapper = new ObjectMapper();
+			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
+		}else {
+			
+			if(inventoryService.restockInventory(productName, quantity, storeName)) {
+				InventoryItem newItem = new InventoryItem(storeName, quantity, storeName);
+				resp.setStatus(201);
+				ObjectMapper mapper = new ObjectMapper();
+				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newItem));
+				
+				
+			
+				
+			}else {
+
+				logger.log(LogLevel.ERROR, "attempt to replenish stock of product failed. see logs for details ");
+
+				Map<String, String> error = new HashMap<String, String>() {
+					private static final long serialVersionUID = 1L;
+
+					{
+						put("error", "could not replenish inventory");
+					}
+				};
+				ObjectMapper mapper = new ObjectMapper();
+				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
+				
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();

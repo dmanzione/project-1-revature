@@ -1,5 +1,8 @@
 package com.revature.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author DonatoManzione
  * 
@@ -21,7 +24,10 @@ public class Product {
 		MISCELLANEOUS
 
 	}
+	private List<String> inStockAt= new ArrayList<String>();
 
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -37,6 +43,10 @@ public class Product {
 		this.category = category;
 	}
 
+	public Product() {
+		
+	}
+
 	@Override
 	public String toString() {
 		return "Product [name=" + name + ", price=" + price + "]";
@@ -48,5 +58,13 @@ public class Product {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public List<String> getStoresInStockAt() {
+		return inStockAt;
+	}
+
+	public void addStoreWhereInStock(List<String> inStockAt) {
+		this.inStockAt = inStockAt;
 	}
 }
