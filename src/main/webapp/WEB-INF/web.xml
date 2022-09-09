@@ -41,8 +41,8 @@
 	</servlet>
 	<servlet>
 		<servlet-name>OrdersController</servlet-name>
-		<display-name>PirateOrdersController</display-name>
-		<servlet-class>com.revature.controllers.PirateOrdersController</servlet-class>
+		<display-name>OrdersController</display-name>
+		<servlet-class>com.revature.controllers.OrdersController</servlet-class>
 	</servlet>
 	
 	<!-- filters, for pages with sensitive info -->

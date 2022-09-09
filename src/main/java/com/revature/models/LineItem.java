@@ -4,12 +4,14 @@ public class LineItem {
 
 	private String productName;
 	private int quantity;
+	private String storeLocation;
 
 	
-	public LineItem(String productName, int quantity) {
+	public LineItem(String productName, int quantity, String storeLocation) {
 		super();
 		this.productName = productName;
 		this.quantity = quantity;
+		this.storeLocation = storeLocation;
 	}
 
 	public String getProductName() {
@@ -31,6 +33,14 @@ public class LineItem {
 	@Override
 	public String toString() {
 		return "LineItem [productName=" + productName + ", quantity=" + quantity + "]";
+	}
+
+	public void storeLocation (String storeLocation) {
+		this.storeLocation = storeLocation;
+	}
+	public String getStoreLocation() {
+		
+		return storeLocation;
 	}
 
 	

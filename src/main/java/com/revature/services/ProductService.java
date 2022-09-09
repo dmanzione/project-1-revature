@@ -23,4 +23,15 @@ public class ProductService {
 		return productDAO.read(productName)!=null;
 		
 	}
+
+	public Product getProduct(String productName) {
+		
+		for(Product p : getAllProducts()) {
+			if(p.getName().equalsIgnoreCase(productName))
+				return p;
+		}
+			
+	
+		return null;
+	}
 }
