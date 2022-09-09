@@ -24,6 +24,13 @@
 		<display-name>LocationController</display-name>
 		<servlet-class>com.revature.controllers.LocationController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>SignupController</servlet-name>
+		<display-name>SignupController</display-name>
+		<servlet-class>com.revature.controllers.SignupController</servlet-class>
+	</servlet>
+	
+	
 
 
 	<!-- end points -->
@@ -36,17 +43,24 @@
 	<servlet-mapping>
 
 		<servlet-name>ProductController</servlet-name>
-		<url-pattern>/products/</url-pattern>
+		<url-pattern>/products</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 
 		<servlet-name>PirateController</servlet-name>
-		<url-pattern>/pirates/</url-pattern>
+		<url-pattern>/pirates</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 
 		<servlet-name>LocationController</servlet-name>
 		<url-pattern>/stores</url-pattern>
+		
+	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>SignupController</servlet-name>
+		<url-pattern>/register</url-pattern>
+		
 	</servlet-mapping>
 	
 
