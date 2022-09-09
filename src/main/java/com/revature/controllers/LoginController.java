@@ -22,27 +22,25 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CaptainsLogger logger = CaptainsLogger.getLogger();
 
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String loginPage = Templates.getLoginPage();
 		resp.setStatus(200);
 		resp.getWriter().write(loginPage);
 	}
-	
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PirateService pirateService = new PirateService(new PirateDAO());
-		
+
 		String loginPage = Templates.getLoginPage();
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		if (!pirateService.recordExists(email)) {
 			resp.setStatus(404);
-			logger.log(LogLevel.ERROR, "Email entered by pirate not in system, login failer."
-					+ " Send back with error message");
-			
+			logger.log(LogLevel.ERROR,
+					"Email entered by pirate not in system, login failer." + " Send back with error message");
+
 			Map<String, String> error = new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
 
@@ -58,11 +56,9 @@ public class LoginController extends HttpServlet {
 		} else {
 
 			Pirate pirateAtTheGates = pirateService.getPirateByEmail(email);
-			
-			
+
 			// check insertion was successful
-			if (!pirateService.passwordsMatch(password,pirateAtTheGates)) {
-				
+			if (!pirateService.passwordsMatch(password, pirateAtTheGates)) {
 
 				resp.setStatus(401);
 				Map<String, String> error = new HashMap<String, String>() {
@@ -77,8 +73,7 @@ public class LoginController extends HttpServlet {
 
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 			} else {
-				
-				
+
 				resp.setStatus(201);
 				req.getSession().setAttribute("pirate", pirateAtTheGates);
 				resp.sendRedirect("/revPirate/pirates/");

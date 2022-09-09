@@ -18,34 +18,35 @@ public class ConnectionFactory {
 	}
 
 	static {
-		logger.log(LogLevel.INFO,"Inside Connection Factory");
+		logger.log(LogLevel.INFO, "Inside Connection Factory");
 
 		try {
-			logger.log(LogLevel.INFO,"Trying to find PostgreSQL Driver");
+			logger.log(LogLevel.INFO, "Trying to find PostgreSQL Driver");
 			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
-			logger.log(LogLevel.ERROR,"DRIVER COULD NOT BE FOUND");
+			logger.log(LogLevel.ERROR, "DRIVER COULD NOT BE FOUND");
 		}
 
 	}
 
 	public Connection getConnection() {
-		logger.log(LogLevel.INFO,"Attempting to get SQL connection object from PostgreSQL Driver");
+		logger.log(LogLevel.INFO, "Attempting to get SQL connection object from PostgreSQL Driver");
 		Connection conn = null;
 		try {
-			logger.log(LogLevel.INFO,"Attempting to retrieve information from database.properties file");
-			properties.load(new FileReader("/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/database/database.properties"));
+			logger.log(LogLevel.INFO, "Attempting to retrieve information from database.properties file");
+			properties.load(new FileReader(
+					"/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/database/database.properties"));
 		} catch (IOException e1) {
-			
-			logger.log(LogLevel.ERROR,"ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
+
+			logger.log(LogLevel.ERROR, "ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
 		}
 		try {
 			conn = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"),
 					properties.getProperty("password"));
 			return conn;
 		} catch (SQLException e) {
-			logger.log(LogLevel.ERROR,"SQL EXCEPTION PREVENTED MAKING THE CONNECTION TO DATABASE");
+			logger.log(LogLevel.ERROR, "SQL EXCEPTION PREVENTED MAKING THE CONNECTION TO DATABASE");
 
 		}
 		return conn;

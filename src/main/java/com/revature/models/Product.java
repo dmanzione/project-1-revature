@@ -6,12 +6,11 @@ import java.util.List;
 /**
  * @author DonatoManzione
  * 
- *         This class represents a product; you can only have one. 
- *         
- *         you can have an inventory
- *         object that represents the quantity of this object in a store, but
- *         you cannot have two objects of this class -- that would be a
- *         duplicate entry See @Inventory
+ *         This class represents a product; you can only have one.
+ * 
+ *         you can have an inventory object that represents the quantity of this
+ *         object in a store, but you cannot have two objects of this class --
+ *         that would be a duplicate entry See @Inventory
  *
  */
 public class Product {
@@ -19,15 +18,15 @@ public class Product {
 	private String name;
 	private double price;
 	private String category;
+
 	public enum categories {
 		CLOTHING_AND_ACCESSORIES, NAVIGATION, HOw_TO_GUIDES, MAGIC_TOKENS_AND_POTIONS, ENTERTAINMENT, WEAPONRY,
 		MISCELLANEOUS
 
 	}
-	private List<String> inStockAt= new ArrayList<String>();
 
-	
-	
+	private List<String> inStockAt = new ArrayList<String>();
+
 	public String getName() {
 		return name;
 	}
@@ -44,7 +43,7 @@ public class Product {
 	}
 
 	public Product() {
-		
+
 	}
 
 	@Override

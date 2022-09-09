@@ -46,7 +46,7 @@ public class SignupController extends HttpServlet {
 		if (pirateService.recordExists(email)) {
 			resp.setStatus(412);
 			logger.log(LogLevel.ERROR, "email taken");
-			
+
 			Map<String, String> error = new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
 
@@ -80,7 +80,7 @@ public class SignupController extends HttpServlet {
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 			} else {
 				new PirateDAO().create(newPirate);
-				
+
 				newPirate = pirateService.getPirateByEmail(newPirate.getEmail());
 				resp.setStatus(201);
 				req.getSession().setAttribute("pirate", newPirate);

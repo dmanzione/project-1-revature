@@ -6,7 +6,6 @@ public class LineItem {
 	private int quantity;
 	private String storeLocation;
 
-	
 	public LineItem(String productName, int quantity, String storeLocation) {
 		super();
 		this.productName = productName;
@@ -29,20 +28,19 @@ public class LineItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "LineItem [productName=" + productName + ", quantity=" + quantity + "]";
 	}
 
-	public void storeLocation (String storeLocation) {
+	public void storeLocation(String storeLocation) {
 		this.storeLocation = storeLocation;
 	}
+
 	public String getStoreLocation() {
-		
+
 		return storeLocation;
 	}
-
-	
 
 }

@@ -7,12 +7,13 @@ import com.revature.models.LineItem;
 
 public class LineItemService {
 	private LineItemDAO lineItemDAO;
+
 	public LineItemService(LineItemDAO lineItemDAO) {
 		this.lineItemDAO = lineItemDAO;
 	}
 
 	public boolean submitForPurchase(LineItem li) {
-		
+
 		return lineItemDAO.create(li);
 	}
 

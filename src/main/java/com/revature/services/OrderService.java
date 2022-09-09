@@ -18,37 +18,29 @@ public class OrderService {
 
 	public boolean placeOrder(Order order) {
 		return orderDAO.create(order);
-		
-		
+
 	}
 
-	
 	public List<Order> getPirateOrders(int pirateID) {
-	
-		List<Order> pirateOrders =  new ArrayList<Order>();
-		
+
+		List<Order> pirateOrders = new ArrayList<Order>();
+
 		List<Order> allOrders = orderDAO.readAll();
 
-		if(allOrders == null || allOrders.isEmpty()) {
-			
+		if (allOrders == null || allOrders.isEmpty()) {
+
 			return null;
-		}else {
-			for(Order order : orderDAO.readAll()) {
-				if(order.getPirateID()>0)
-				{
-					if(order.getPirateID()==pirateID)
-					pirateOrders.add(order);
-					
+		} else {
+			for (Order order : orderDAO.readAll()) {
+				if (order.getPirateID() > 0) {
+					if (order.getPirateID() == pirateID)
+						pirateOrders.add(order);
+
 				}
-					
+
 			}
 		}
 		return pirateOrders;
-		
-				
-				
-	
-		
-		
+
 	}
 }

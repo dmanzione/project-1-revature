@@ -9,9 +9,7 @@ public class Pirate {
 	private String lastName;
 	private String password;
 
-
-
-	public Pirate(String firstName,String lastName, String email, String password) {
+	public Pirate(String firstName, String lastName, String email, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -22,8 +20,6 @@ public class Pirate {
 	public String getEmail() {
 		return email;
 	}
-
-	
 
 	public int getId() {
 		return id;
@@ -42,8 +38,6 @@ public class Pirate {
 
 	}
 
-	
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -57,8 +51,7 @@ public class Pirate {
 	public boolean equals(Object o) {
 		Pirate other = (Pirate) o;
 		return other.getEmail().equalsIgnoreCase(email) && other.getFirstName().equalsIgnoreCase(firstName)
-				 && other.getFirstName().equalsIgnoreCase(firstName)
-				&& other.getPassword().equalsIgnoreCase(password);
+				&& other.getFirstName().equalsIgnoreCase(firstName) && other.getPassword().equalsIgnoreCase(password);
 	}
 
 	public String getFirstName() {
@@ -68,6 +61,7 @@ public class Pirate {
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}

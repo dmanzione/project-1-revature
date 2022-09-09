@@ -26,8 +26,6 @@ public class InventoryController extends HttpServlet {
 	private InventoryService inventoryService;
 	private CaptainsLogger logger = CaptainsLogger.getLogger();
 
-
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ProductService productService = new ProductService(new ProductDAO());
@@ -36,8 +34,8 @@ public class InventoryController extends HttpServlet {
 		int quantity = Integer.valueOf(req.getParameter("quantity"));
 		String storeName = req.getParameter("storeName");
 		inventoryService = new InventoryService(new InventoryDAO());
-		
-		if(!productService.isSoldAtStores(productName)) {
+
+		if (!productService.isSoldAtStores(productName)) {
 
 			logger.log(LogLevel.ERROR, "attempt to replenish stock of product with unknown name");
 
@@ -45,23 +43,21 @@ public class InventoryController extends HttpServlet {
 				private static final long serialVersionUID = 1L;
 
 				{
-					put("error", "We have no products registered with that name. Did you mean to introduce a new product?");
+					put("error",
+							"We have no products registered with that name. Did you mean to introduce a new product?");
 				}
 			};
 			ObjectMapper mapper = new ObjectMapper();
 			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
-		}else {
-			
-			if(inventoryService.restockInventory(productName, quantity, storeName)) {
-				InventoryItem newItem = new InventoryItem(storeName, quantity, storeName);
+		} else {
+
+			if (inventoryService.restockInventory(productName, quantity, storeName)) {
+				InventoryItem newItem = new InventoryItem(productName, quantity, storeName);
 				resp.setStatus(201);
 				ObjectMapper mapper = new ObjectMapper();
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newItem));
-				
-				
-			
-				
-			}else {
+
+			} else {
 
 				logger.log(LogLevel.ERROR, "attempt to replenish stock of product failed. see logs for details ");
 
@@ -74,28 +70,24 @@ public class InventoryController extends HttpServlet {
 				};
 				ObjectMapper mapper = new ObjectMapper();
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
-				
+
 			}
-			
-			
+
 		}
-		
-		
+
 	}
-	
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		resp.setContentType("application/json");
 		inventoryService = new InventoryService(new InventoryDAO());
-		
-		//if no store was specified in path, serve inventory for the whole chain
-		if (req.getPathInfo()==null || req.getPathInfo().replace("/", "").isEmpty()) {
-			
+
+		// if no store was specified in path, serve inventory for the whole chain
+		if (req.getPathInfo() == null || req.getPathInfo().replace("/", "").isEmpty()) {
+
 			List<InventoryItem> chainInventory = inventoryService.getInventoryAllLocations();
-			if(chainInventory==null||chainInventory.isEmpty())
-			{
+			if (chainInventory == null || chainInventory.isEmpty()) {
 				logger.log(LogLevel.ERROR, "there are no products in any of the stores ");
 
 				Map<String, String> error = new HashMap<String, String>() {
@@ -107,23 +99,18 @@ public class InventoryController extends HttpServlet {
 				};
 
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
-				
-			}
-				else	
-			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(chainInventory));
-			
-		
+
+			} else
+				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(chainInventory));
 
 		} else {
 			String storeLocationRequested = req.getPathInfo().replace("/", "");
-			
-			
-		
+
 			if (LocationService.exists(storeLocationRequested)) {
-				
+
 				List<InventoryItem> storeInventory = inventoryService.getStoreInventory(storeLocationRequested);
-				
-				//for when the result is nothing because the store is empty of products
+
+				// for when the result is nothing because the store is empty of products
 				if (storeInventory == null || storeInventory.isEmpty()) {
 					resp.setStatus(412);
 					logger.log(LogLevel.ERROR, "this store is completely empty, nothing to show");
@@ -144,7 +131,7 @@ public class InventoryController extends HttpServlet {
 				}
 
 			} else {
-				//for when the path doesn't match any store names
+				// for when the path doesn't match any store names
 				resp.setStatus(412);
 				logger.log(LogLevel.ERROR, "bad input, no such store");
 
@@ -155,7 +142,7 @@ public class InventoryController extends HttpServlet {
 						put("error", "no such store");
 					}
 				};
-				
+
 				resp.setContentType("application/json");
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 			}

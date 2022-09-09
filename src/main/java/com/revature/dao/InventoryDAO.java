@@ -16,7 +16,6 @@ import com.revature.utils.ConnectionFactory;
 public class InventoryDAO {
 	CaptainsLogger logger = CaptainsLogger.getLogger();
 
-
 	public List<InventoryItem> getAll() {
 		List<InventoryItem> inventoryItem = new ArrayList<>();
 		String query = "SELECT * FROM inventory";

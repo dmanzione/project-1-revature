@@ -15,11 +15,10 @@ import com.revature.utils.ConnectionFactory;
 public class PirateDAO {
 	CaptainsLogger logger = CaptainsLogger.getLogger();
 
-
 	public List<Pirate> getAllInstances() {
 		String query = "SELECT * FROM pirates;";
 		List<Pirate> pirates = new ArrayList<>();
-		logger.log(LogLevel.INFO,"Inside getAllInstances method of PirateDAO class");
+		logger.log(LogLevel.INFO, "Inside getAllInstances method of PirateDAO class");
 		ConnectionFactory.getInstance();
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			Statement stmt = conn.createStatement();
@@ -34,13 +33,13 @@ public class PirateDAO {
 			return pirates;
 		} catch (SQLException e) {
 
-			logger.log(LogLevel.ERROR,"UNABLE TO RETRIEVE RECORDS OF PIRATES");
+			logger.log(LogLevel.ERROR, "UNABLE TO RETRIEVE RECORDS OF PIRATES");
 			return pirates;
 		}
 	}
 
 	public boolean create(Pirate pirate) {
-		logger.log(LogLevel.INFO,"Inside of the create method of the PirateDAO class");
+		logger.log(LogLevel.INFO, "Inside of the create method of the PirateDAO class");
 
 		String query = "INSERT INTO pirates (first_name, last_name, email, password) VALUES (?,?,?,?);";
 
@@ -56,7 +55,8 @@ public class PirateDAO {
 
 		} catch (SQLException e) {
 
-			logger.log(LogLevel.ERROR,"ERROR WHILE TRYING TO ADD A PIRATE RECORD TO DATABASE FROM DAO " + "\n \t" + e.getMessage());
+			logger.log(LogLevel.ERROR,
+					"ERROR WHILE TRYING TO ADD A PIRATE RECORD TO DATABASE FROM DAO " + "\n \t" + e.getMessage());
 			return false;
 		}
 		return true;
@@ -65,7 +65,7 @@ public class PirateDAO {
 	public Pirate readBy(String email) {
 		String query = "SELECT * FROM pirates WHERE email = '" + email + "'";
 		Pirate pirate = null;
-		logger.log(LogLevel.INFO,"Inside readBy(emai) method of PirateDAO class");
+		logger.log(LogLevel.INFO, "Inside readBy(emai) method of PirateDAO class");
 		ConnectionFactory.getInstance();
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			Statement stmt = conn.createStatement();
@@ -80,7 +80,7 @@ public class PirateDAO {
 
 		} catch (SQLException e) {
 
-			logger.log(LogLevel.INFO,"UNABLE TO RETRIEVE PIRATE RECORD");
+			logger.log(LogLevel.INFO, "UNABLE TO RETRIEVE PIRATE RECORD");
 
 		}
 		return pirate;

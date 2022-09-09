@@ -3,40 +3,33 @@ package com.revature.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * @author DonatoManzione
- * 		   This class is for storing data that will not be stored
- * 		   in the database or else is so frequently used that a local
- * 		   storage would increase efficiency.
+ * @author DonatoManzione This class is for storing data that will not be stored
+ *         in the database or else is so frequently used that a local storage
+ *         would increase efficiency.
  * 
  * 
- * 		  
+ * 
  *
  */
 
-
 public class LocalStorage {
-	
+
 	/**
-	 *	Make constructor private so that
-	 *	LocationStorage cannot be instantiated.
+	 * Make constructor private so that LocationStorage cannot be instantiated.
 	 *
 	 */
 	private LocalStorage() {
-		
-	}
-	
-	
 
-	public static Map<String,String> getLocations() {
-		
+	}
+
+	public static Map<String, String> getLocations() {
+
 		return new HashMap<String, String>() {
 			/**
-			 *  A map of the GPS coordinates of the stores belonging
-			 *  to this chain. Each location's name corresponds to a level
-			 *  in the hierarchy of pirate ships, and the GPS coordinates are 
-			 *  coordinates of known shipwrecks.
+			 * A map of the GPS coordinates of the stores belonging to this chain. Each
+			 * location's name corresponds to a level in the hierarchy of pirate ships, and
+			 * the GPS coordinates are coordinates of known shipwrecks.
 			 *
 			 */
 			private static final long serialVersionUID = 1L;
@@ -54,8 +47,7 @@ public class LocalStorage {
 				put("Cook Branch", "Milan: 43° 22' 19.8084\" N -78° 11' 28.86\" W");
 
 			};
-			
-		
+
 		};
 	}
 

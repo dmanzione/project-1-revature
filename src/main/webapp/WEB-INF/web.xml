@@ -2,7 +2,7 @@
 
 <web-app>
 	<display-name>Pirate Supply Chain</display-name>
-	
+
 	<!-- servlets -->
 	<servlet>
 		<servlet-name>PirateController</servlet-name>
@@ -44,6 +44,7 @@
 		<display-name>OrdersController</display-name>
 		<servlet-class>com.revature.controllers.OrdersController</servlet-class>
 	</servlet>
+
 	
 	<!-- filters, for pages with sensitive info -->
 
@@ -82,27 +83,28 @@
 		<url-pattern>/login</url-pattern>
 
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 
 		<servlet-name>InventoryController</servlet-name>
 		<url-pattern>/stores/inventory/*</url-pattern>
 
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 
 		<servlet-name>OrdersController</servlet-name>
 		<url-pattern>/orders</url-pattern>
 
 	</servlet-mapping>
 
+
 	<!-- end points servlet filters are mapped to -->
-	
-	
+
+
 	<!-- make each session last at most 1 hr -->
 	<session-config>
 		<session-timeout>60</session-timeout>
-	
+
 	</session-config>
 
 </web-app>

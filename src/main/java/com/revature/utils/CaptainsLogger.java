@@ -11,7 +11,6 @@ public class CaptainsLogger {
 		INFO, DEBUG, VERBOSE, WARNING, FATAL, ERROR
 	}
 
-
 	private CaptainsLogger() {
 	}
 
@@ -25,15 +24,16 @@ public class CaptainsLogger {
 	}
 
 	private void writeToFile(String message) {
-		try (FileWriter writer = new FileWriter("/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/logs" + LocalDateTime.now().toLocalDate() + ".log", true)) {
+		try (FileWriter writer = new FileWriter(
+				"/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/logs"
+						+ LocalDateTime.now().toLocalDate() + ".log",
+				true)) {
 
 			writer.append(message + "\n");
-		} catch(FileNotFoundException e1) {
-			
-		
-			
-		}catch (IOException e) {
-		
+		} catch (FileNotFoundException e1) {
+
+		} catch (IOException e) {
+
 			System.out.println(e);
 		}
 

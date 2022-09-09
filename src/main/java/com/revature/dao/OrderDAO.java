@@ -15,27 +15,29 @@ import com.revature.utils.CaptainsLogger.LogLevel;
 
 public class OrderDAO {
 	CaptainsLogger logger = CaptainsLogger.getLogger();
-	
+
 	public static void main(String[] args) {
-		
-		new OrderDAO().create(new Order("Captain Branch",6,160.00));
+
+		new OrderDAO().create(new Order("Captain Branch", 6, 160.00));
 	}
+
 	public boolean create(Order order) {
-			
+
 		String query = "INSERT INTO orders (pirate_id, store_location, total_price) values(?,?,?)";
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,order.getPirateID());
+			pstmt.setInt(1, order.getPirateID());
 			pstmt.setString(2, order.getStoreLocation());
 			pstmt.setDouble(3, order.getTotalPrice());
-			
+
 			pstmt.execute();
-			
+
 			return true;
-			
+
 		} catch (SQLException e) {
-			
-			logger.log(LogLevel.ERROR, "Error while trying to add an order "+order+ "to database:\n\t\t"+e.getMessage());
+
+			logger.log(LogLevel.ERROR,
+					"Error while trying to add an order " + order + "to database:\n\t\t" + e.getMessage());
 			return false;
 		}
 

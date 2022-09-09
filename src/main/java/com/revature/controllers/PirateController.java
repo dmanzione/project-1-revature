@@ -29,8 +29,7 @@ public class PirateController extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		resp.setStatus(200);
 		resp.setContentType("application/json");
-		resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter()
-				.writeValueAsString(pirates));
+		resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pirates));
 
 	}
 

@@ -8,8 +8,7 @@ public class Order {
 	private String storeLocation;
 	private int pirateID;
 	private double totalPrice;
-	
-	
+
 	public Order(String storeLocation, int pirateID) {
 		this.storeLocation = storeLocation;
 		this.pirateID = pirateID;
@@ -28,8 +27,6 @@ public class Order {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public List<LineItem> getLineItems() {
 		return lineItems;
@@ -68,8 +65,5 @@ public class Order {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	
-	
-	
+
 }

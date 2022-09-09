@@ -19,13 +19,11 @@ public class LocationController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		resp.setStatus(200);
-		
+
 		Map<String, String> locations = LocalStorage.getLocations();
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(locations));
 	}
-	
-	
-	
+
 }
