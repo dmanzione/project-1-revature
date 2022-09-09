@@ -34,7 +34,11 @@
 		<display-name>LoginController</display-name>
 		<servlet-class>com.revature.controllers.LoginController</servlet-class>
 	</servlet>
-
+	<servlet>
+		<servlet-name>InventoryController</servlet-name>
+		<display-name>InventoryController</display-name>
+		<servlet-class>com.revature.controllers.InventoryController</servlet-class>
+	</servlet>
 	<!-- filters, for pages with sensitive info -->
 
 	<!--end points servlets are mapped to -->
@@ -70,6 +74,13 @@
 
 		<servlet-name>LoginController</servlet-name>
 		<url-pattern>/login</url-pattern>
+
+	</servlet-mapping>
+	
+	<servlet-mapping>
+
+		<servlet-name>InventoryController</servlet-name>
+		<url-pattern>/stores/inventory/*</url-pattern>
 
 	</servlet-mapping>
 
