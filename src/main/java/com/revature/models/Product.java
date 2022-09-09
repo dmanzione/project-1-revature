@@ -15,7 +15,7 @@ public class Product {
 
 	private String name;
 	private double price;
-
+	private String category;
 	public enum categories {
 		CLOTHING_AND_ACCESSORIES, NAVIGATION, HOw_TO_GUIDES, MAGIC_TOKENS_AND_POTIONS, ENTERTAINMENT, WEAPONRY,
 		MISCELLANEOUS
@@ -30,10 +30,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public Product(String name, double price) {
+	public Product(String name, double price, String category) {
 		super();
 		this.name = name;
 		this.price = price;
+		this.category = category;
 	}
 
 	@Override

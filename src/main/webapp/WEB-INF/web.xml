@@ -40,10 +40,11 @@
 		<servlet-class>com.revature.controllers.InventoryController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>PirateOrdersController</servlet-name>
+		<servlet-name>OrdersController</servlet-name>
 		<display-name>PirateOrdersController</display-name>
 		<servlet-class>com.revature.controllers.PirateOrdersController</servlet-class>
 	</servlet>
+	
 	<!-- filters, for pages with sensitive info -->
 
 	<!--end points servlets are mapped to -->
@@ -90,8 +91,8 @@
 	</servlet-mapping>
 		<servlet-mapping>
 
-		<servlet-name>PirateOrdersController</servlet-name>
-		<url-pattern>/pirates/orders</url-pattern>
+		<servlet-name>OrdersController</servlet-name>
+		<url-pattern>/orders</url-pattern>
 
 	</servlet-mapping>
 
