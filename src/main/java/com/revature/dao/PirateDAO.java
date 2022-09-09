@@ -52,13 +52,14 @@ public class PirateDAO {
 			pstmt.setString(2, pirate.getLastName());
 			pstmt.setString(3, pirate.getEmail());
 			pstmt.setString(4, pirate.getPassword());
-			return pstmt.execute();
+			pstmt.execute();
 
 		} catch (SQLException e) {
 
-			logger.log(LogLevel.ERROR,"ERROR WHILE TRYING TO ADD A PIRATE RECORD TO DATABASE");
+			logger.log(LogLevel.ERROR,"ERROR WHILE TRYING TO ADD A PIRATE RECORD TO DATABASE FROM DAO " + "\n \t" + e.getMessage());
 			return false;
 		}
+		return true;
 	}
 
 	public Pirate readBy(String email) {

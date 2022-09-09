@@ -2,89 +2,79 @@ package com.revature.controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.dao.OrderDAO;
 import com.revature.dao.PirateDAO;
+import com.revature.models.Order;
 import com.revature.models.Pirate;
+import com.revature.services.OrderService;
 import com.revature.services.PirateService;
 import com.revature.utils.CaptainsLogger;
-import com.revature.utils.Templates;
 import com.revature.utils.CaptainsLogger.LogLevel;
 
-public class LoginController extends HttpServlet {
+public class PirateOrdersController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private CaptainsLogger logger = CaptainsLogger.getLogger();
 
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String loginPage = Templates.getLoginPage();
-		resp.setStatus(200);
-		resp.getWriter().write(loginPage);
-	}
-	
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		PirateService pirateService = new PirateService(new PirateDAO());
 		
-		String loginPage = Templates.getLoginPage();
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		if (!pirateService.recordExists(email)) {
-			resp.setStatus(404);
-			logger.log(LogLevel.ERROR, "Email entered by pirate not in system, login failer."
-					+ " Send back with error message");
+		HttpSession session = req.getSession();
+
+		ObjectMapper mapper = new ObjectMapper();
+		resp.setContentType("application/json");
+		
+		if(session.getAttribute("pirate")==null) {
+			resp.setStatus(401);
 			
+			logger.log(LogLevel.ERROR, "there are no products in any of the stores ");
+
 			Map<String, String> error = new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
 
 				{
-					put("error", "email not in system");
+					put("error", "Unauthorized. Please sign in");
 				}
 			};
-
-			ObjectMapper mapper = new ObjectMapper();
-
 			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
-
-		} else {
-
-			Pirate pirateAtTheGates = pirateService.getPirateByEmail(email);
 			
+		}else {
+		
+			Pirate pirate = (Pirate) session.getAttribute("pirate");
+			resp.setStatus(204);
+			List<Order> orders = new OrderService(new OrderDAO()).getPirateOrders(pirate.getId());
 			
-			// check insertion was successful
-			if (!pirateService.passwordsMatch(password,pirateAtTheGates)) {
+			if(orders==null || orders.isEmpty()) {
+				resp.setStatus(204);
 				
+				logger.log(LogLevel.ERROR, "pirate " + pirate + " has no order history");
 
-				resp.setStatus(401);
 				Map<String, String> error = new HashMap<String, String>() {
 					private static final long serialVersionUID = 1L;
 
 					{
-						put("error", "wrong password");
+						put("error", "Unauthorized. Please sign in");
 					}
 				};
-
-				ObjectMapper mapper = new ObjectMapper();
-
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
-			} else {
-				
-				
+			}else {
 				resp.setStatus(201);
-				req.getSession().setAttribute("pirate", pirateAtTheGates);
-				resp.sendRedirect("/revPirate/pirates/");
-
+				resp.setContentType("application/json");
+				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+				
 			}
 		}
-
 	}
 }

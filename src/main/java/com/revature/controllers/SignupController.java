@@ -80,7 +80,10 @@ public class SignupController extends HttpServlet {
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 			} else {
 				new PirateDAO().create(newPirate);
+				
+				newPirate = pirateService.getPirateByEmail(newPirate.getEmail());
 				resp.setStatus(201);
+				req.getSession().setAttribute("pirate", newPirate);
 				resp.sendRedirect("/revPirate/pirates");
 
 			}
