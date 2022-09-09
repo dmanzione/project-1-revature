@@ -17,22 +17,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.PirateDAO;
 import com.revature.models.Pirate;
 import com.revature.services.PirateService;
+import com.revature.utils.Templates;
 
 /**
  * @author DonatoManzione This servlet will handle requests to perform CRUD
  *         operations Create and Read for Pirate records in database
  *
  */
-public class PirateServlet extends HttpServlet {
-	Logger log = LogManager.getLogger(PirateServlet.class);
+public class PirateController extends HttpServlet {
+	Logger log = LogManager.getLogger(PirateController.class);
 	private PirateService pirateService = new PirateService(new PirateDAO());
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Pirate> pirates = pirateService.getAllPirates();
-		ObjectMapper objectMapper = new ObjectMapper();
-		resp.setContentType("application/json");
-		resp.getWriter().write(objectMapper.writeValueAsString(pirates));
+		ObjectMapper mapper = new ObjectMapper();
+		resp.setStatus(200);
+		
+		resp.getWriter().write(Templates.getHeader()+mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(pirates)+Templates.getFooter());
 
 	}
 
@@ -61,7 +64,7 @@ public class PirateServlet extends HttpServlet {
 
 			ObjectMapper mapper = new ObjectMapper();
 
-			resp.getWriter().write(mapper.writeValueAsString(error));
+			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 
 		}
 
@@ -81,7 +84,7 @@ public class PirateServlet extends HttpServlet {
 
 			ObjectMapper mapper = new ObjectMapper();
 
-			resp.getWriter().write(mapper.writeValueAsString(error));
+			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 		}
 
 		// check insertion was successful

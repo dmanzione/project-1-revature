@@ -3,7 +3,9 @@ package com.revature.models;
 /**
  * @author DonatoManzione
  * 
- *         This class represents a product as unique; you can have an inventory
+ *         This class represents a product; you can only have one. 
+ *         
+ *         you can have an inventory
  *         object that represents the quantity of this object in a store, but
  *         you cannot have two objects of this class -- that would be a
  *         duplicate entry See @Inventory
