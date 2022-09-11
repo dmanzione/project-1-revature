@@ -54,13 +54,12 @@
 
 	<!-- filters, for pages with sensitive info -->
 
-	<!--end points servlets are mapped to -->
-
+	
 
 	<servlet-mapping>
 
 		<servlet-name>HomeController</servlet-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 
