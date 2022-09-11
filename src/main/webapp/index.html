@@ -1,26 +1,81 @@
-<!DOCTYPE html>
-<html>
+<html data-lt-installed="true">
+<head>
 <title>The Pirate Store Chain</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+</head>
+<body class="w3-sand">
 
-<div class="w3-brown w3-container w3-center"><h1 
-class="w3-main"><br>Welcome to the Pirate Supply 
-Store!</h1><br><br><br></div>
+	<!--header-->
+	<header class="w3-brown w3-container w3-center">
+		<h1 class="">
+			<br>Welcome to the Pirate Supply Store API!
+		</h1>
+		<br> <br> <br>
+	</header>
 
-<div class="w3-sand  w3-container" style="word-wrap: break-word; 
-white-space: pre-wrap;line-height:1.8">
+	<br>
+	<br>
+	<br>
 
-<div class="w3-third"><br></div><div class="w3-half">
+	<!--main, display container -->
+	<div class="w3-main w3-display-container">
 
-</div>
+		<div
+			class="w3-half w3-display-topmiddle w3-card-4  w3-light-grey w3-padding w3-threequarter ">
+			<div class="w3-container w3-padding w3-bar-block">
+
+				<h5 class="w3-left w3-bar-item ">Public endpoints:</h5>
+				<div class="w3-container w3-padding w3-bar-block">
+					<span class="w3-bar-item w3-margin-right ">Home: <span
+						class="w3-codespan w3-text-black"> GET /</span></span> <span
+						class="w3-bar-item w3-margin-right ">Locations: <span
+						class="w3-codespan w3-text-black"> GET /stores</span>
+					</span> <span class="w3-bar-item w3-margin-right ">Login Page: <span
+						class="w3-codespan w3-text-black"> GET /login</span>
+					</span> <span class="w3-bar-item w3-margin-right ">Signup Page: <span
+						class="w3-codespan w3-text-black"> GET /register</span>
+					</span>
+				</div>
+
+				<h5 class="w3-left w3-bar-item">Pirate endpoints:</h5>
+
+				<div class="w3-container w3-padding w3-bar-block">
+					<span class="w3-bar-item w3-margin-right ">Submit
+						registration form: <span class="w3-codespan w3-text-black">
+							POST /register</span>
+					</span> <span class="w3-bar-item w3-margin-right ">Submit login
+						form form: <span class="w3-codespan w3-text-black"> POST
+							/register</span>
+					</span> <span class="w3-bar-item w3-margin-right ">View past
+						orders: <span class="w3-codespan w3-text-black">/orders</span>
+					</span>
+
+				</div>
+
+				<h5 class="w3-bar-item">Employee endpoints:</h5>
+				<div class="w3-container w3-padding w3-bar-block">
 
 
-</div>
+					<span class="w3-bar-item w3-margin-right ">See inventory for
+						a location: <span class="w3-codespan w3-text-black">GET
+							/stores/{location}/inventory</span>
+					</span> <span class="w3-bar-item w3-margin-right ">All pirate
+						clients: <span class="w3-codespan w3-text-black">GET
+							/pirates</span>
+					</span><span class="w3-bar-item w3-margin-right ">All orders: <span
+						class="w3-codespan w3-text-black">GET /orders</span>
+					</span> <span class="w3-bar-item w3-margin-right ">Replenish
+						inventory for a location:<span class="w3-codespan w3-text-black">
+							POST /stores/{location}/inventory</span>
+					</span>
 
-
+				</div>
+			</div>
+			<br> <br> <br> <br> <br>
+		</div>
+	</div>
 </body>
 </html>
-

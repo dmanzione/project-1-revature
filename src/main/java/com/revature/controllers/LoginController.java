@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PirateService pirateService = new PirateService(new PirateDAO());
-
+		resp.setContentType("application/json");
 		String loginPage = Templates.getLoginPage();
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
@@ -76,7 +76,8 @@ public class LoginController extends HttpServlet {
 
 				resp.setStatus(201);
 				req.getSession().setAttribute("pirate", pirateAtTheGates);
-				resp.sendRedirect("/revPirate/pirates/");
+				req.getSession().setMaxInactiveInterval(60*60);
+				resp.getWriter().write(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(pirateAtTheGates));
 
 			}
 		}

@@ -37,6 +37,16 @@ public class PirateController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+		List<Pirate> pirates = pirateService.getAllPirates();
+		ObjectMapper mapper = new ObjectMapper();
+		if(pirates.contains(pirateService.getPirateByEmail(req.getParameter("email")))) {
+			resp.setStatus(200);
+			resp.setContentType("application/json");
+			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pirateService.getPirateByEmail(req.getParameter("email"))));
+
+		}else {
+			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pirateService.getPirateByEmail(req.getParameter("email").trim().toLowerCase())));
+
+		}
 	}
 }

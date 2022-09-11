@@ -26,6 +26,7 @@ public class ProductController extends HttpServlet {
 		String fullPage = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(products);
 		resp.getWriter().write(fullPage);
 
+	
 	}
 
 	private void goPost() {

@@ -36,7 +36,7 @@ public class ConnectionFactory {
 		try {
 			logger.log(LogLevel.INFO, "Attempting to retrieve information from database.properties file");
 			properties.load(new FileReader(
-					"/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/database/database.properties"));
+					"/Users/user/git/Donato-Manzione-P1-new/src/main/resources/database/database.properties"));
 		} catch (IOException e1) {
 
 			logger.log(LogLevel.ERROR, "ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
@@ -49,6 +49,8 @@ public class ConnectionFactory {
 			logger.log(LogLevel.ERROR, "SQL EXCEPTION PREVENTED MAKING THE CONNECTION TO DATABASE");
 
 		}
+		
+		logger.log(LogLevel.INFO, "SQL CONNECTION MADE SUCCESSFULLY");
 		return conn;
 	}
 

@@ -23,11 +23,11 @@ public class InventoryService {
 	}
 
 	public List<InventoryItem> getStoreInventory(String storeName) {
-		storeName = LocationService.fixLocationName(storeName);
-
+		
+		
 		List<InventoryItem> storeInventory = new ArrayList<>();
 		for (InventoryItem ii : getInventoryAllLocations()) {
-			if (ii.getStoreName().equalsIgnoreCase(storeName))
+			if (ii.getStoreName().trim().equalsIgnoreCase(storeName))
 				storeInventory.add(ii);
 		}
 

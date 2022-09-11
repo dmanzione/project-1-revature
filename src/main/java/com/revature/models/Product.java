@@ -39,7 +39,7 @@ public class Product {
 		super();
 		this.name = name;
 		this.price = price;
-		this.category = category;
+		this.setCategory(category);
 	}
 
 	public Product() {
@@ -63,7 +63,15 @@ public class Product {
 		return inStockAt;
 	}
 
-	public void addStoreWhereInStock(List<String> inStockAt) {
-		this.inStockAt = inStockAt;
+	public void addStoreWhereInStock(String store) {
+		this.inStockAt.add(store);
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

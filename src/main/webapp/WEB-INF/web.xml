@@ -3,7 +3,13 @@
 <web-app>
 	<display-name>Pirate Supply Chain</display-name>
 
-	<!-- servlets -->
+	<!-- controllers -->
+	<servlet>
+		<servlet-name>HomeController</servlet-name>
+		<display-name>HomeController</display-name>
+		<servlet-class>com.revature.controllers.HomeController</servlet-class>
+	</servlet>
+
 	<servlet>
 		<servlet-name>PirateController</servlet-name>
 		<display-name>PirateController</display-name>
@@ -15,9 +21,9 @@
 		<servlet-class>com.revature.controllers.ProductController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>HomeController</servlet-name>
-		<display-name>HomeController</display-name>
-		<servlet-class>com.revature.controllers.HomeController</servlet-class>
+		<servlet-name>ErrorController</servlet-name>
+		<display-name>ErrorController</display-name>
+		<servlet-class>com.revature.controllers.ErrorController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LocationController</servlet-name>
@@ -45,16 +51,23 @@
 		<servlet-class>com.revature.controllers.OrdersController</servlet-class>
 	</servlet>
 
-	
+
 	<!-- filters, for pages with sensitive info -->
 
 	<!--end points servlets are mapped to -->
 
+
 	<servlet-mapping>
 
 		<servlet-name>HomeController</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>ErrorController</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
 	<servlet-mapping>
 
 		<servlet-name>ProductController</servlet-name>
@@ -75,7 +88,10 @@
 
 		<servlet-name>SignupController</servlet-name>
 		<url-pattern>/register</url-pattern>
-
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SignupController</servlet-name>
+		<url-pattern>/register/</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 
@@ -83,11 +99,29 @@
 		<url-pattern>/login</url-pattern>
 
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/login/</url-pattern>
+
+	</servlet-mapping>
+
 
 	<servlet-mapping>
 
 		<servlet-name>InventoryController</servlet-name>
-		<url-pattern>/stores/inventory/*</url-pattern>
+		<url-pattern>/inventory</url-pattern>
+
+	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>InventoryController</servlet-name>
+		<url-pattern>/inventory/</url-pattern>
+
+	</servlet-mapping>
+	<servlet-mapping>
+
+		<servlet-name>InventoryController</servlet-name>
+		<url-pattern>/inventory/*</url-pattern>
 
 	</servlet-mapping>
 	<servlet-mapping>
@@ -97,14 +131,23 @@
 
 	</servlet-mapping>
 
+	<servlet-mapping>
 
-	<!-- end points servlet filters are mapped to -->
+		<servlet-name>OrdersController</servlet-name>
+		<url-pattern>/orders/</url-pattern>
+
+	</servlet-mapping>
 
 
-	<!-- make each session last at most 1 hr -->
+	<!-- make each session last at most 1 hour -->
 	<session-config>
 		<session-timeout>60</session-timeout>
 
 	</session-config>
+	<!-- welcome pages -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+
+	</welcome-file-list>
 
 </web-app>

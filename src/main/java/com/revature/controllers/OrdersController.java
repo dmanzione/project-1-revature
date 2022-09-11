@@ -101,12 +101,13 @@ public class OrdersController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 
 		ObjectMapper mapper = new ObjectMapper();
 		resp.setContentType("application/json");
-
-		if (session.getAttribute("pirate") == null) {
+		
+		Pirate pirate =null;
+		if (session==null||(pirate =(Pirate) session.getAttribute("pirate"))==null) {
 			resp.setStatus(401);
 
 			logger.log(LogLevel.ERROR, "unauthorized user tried to get access");
@@ -122,13 +123,13 @@ public class OrdersController extends HttpServlet {
 
 		} else {
 
-			Pirate pirate = (Pirate) session.getAttribute("pirate");
-			resp.setStatus(204);
+			
+			
 			List<Order> orders = new OrderService(new OrderDAO()).getPirateOrders(pirate.getId());
-
+			resp.getWriter().println(mapper.writeValueAsString(orders)==null);
 			if (orders == null || orders.isEmpty()) {
 				resp.setStatus(204);
-
+				resp.setContentType("application/json");
 				logger.log(LogLevel.ERROR, "pirate " + pirate + " has no order history");
 
 				Map<String, String> error = new HashMap<String, String>() {

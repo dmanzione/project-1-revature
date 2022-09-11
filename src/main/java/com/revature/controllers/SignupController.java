@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -19,7 +20,6 @@ import com.revature.utils.Templates;
 
 public class SignupController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
 	private PirateService pirateService;
 	private CaptainsLogger logger = CaptainsLogger.getLogger();
 
@@ -63,9 +63,11 @@ public class SignupController extends HttpServlet {
 
 			Pirate newPirate = new Pirate(firstName, lastName, email, password);
 			logger.log(LogLevel.DEBUG, "creating pirate object from form inputs : " + newPirate);
-			// check insertion was successful
-			if (!pirateService.addPirate(newPirate)) {
 
+			pirateService.addPirate(newPirate);
+
+			Pirate retrievedSuccessfully = pirateService.getPirateByEmail(email);
+			if (retrievedSuccessfully == null) {
 				resp.setStatus(417);
 				Map<String, String> error = new HashMap<String, String>() {
 					private static final long serialVersionUID = 1L;
@@ -84,7 +86,15 @@ public class SignupController extends HttpServlet {
 				newPirate = pirateService.getPirateByEmail(newPirate.getEmail());
 				resp.setStatus(201);
 				req.getSession().setAttribute("pirate", newPirate);
-				resp.sendRedirect("/revPirate/pirates");
+				final Pirate profileInfo = newPirate;
+				resp.getWriter().write(new ObjectMapper().writerWithDefaultPrettyPrinter()
+						.writeValueAsString(new LinkedHashMap<String, Object>() {
+							{
+
+								put("success", "Account successfully created," + firstName);
+								put("your profile information", (Object)profileInfo);
+							}
+						}));
 
 			}
 		}

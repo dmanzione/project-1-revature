@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.InventoryDAO;
+import com.revature.dao.LineItemDAO;
 import com.revature.dao.ProductDAO;
 import com.revature.models.InventoryItem;
+import com.revature.models.LineItem;
 import com.revature.models.Product;
 import com.revature.services.InventoryService;
+import com.revature.services.LineItemService;
 import com.revature.services.LocationService;
 import com.revature.services.ProductService;
 import com.revature.utils.CaptainsLogger;
@@ -86,6 +90,7 @@ public class InventoryController extends HttpServlet {
 		// if no store was specified in path, serve inventory for the whole chain
 		if (req.getPathInfo() == null || req.getPathInfo().replace("/", "").isEmpty()) {
 
+			// in case there are no products for sale in any of the stores
 			List<InventoryItem> chainInventory = inventoryService.getInventoryAllLocations();
 			if (chainInventory == null || chainInventory.isEmpty()) {
 				logger.log(LogLevel.ERROR, "there are no products in any of the stores ");
@@ -101,14 +106,20 @@ public class InventoryController extends HttpServlet {
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 
 			} else
+				// display items
 				resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(chainInventory));
 
 		} else {
-			String storeLocationRequested = req.getPathInfo().replace("/", "");
+			// in case there is a store name as a path
 
+			String storeLocationRequested = LocationService.fixLocationName(req.getPathInfo());
+
+			resp.getWriter()
+					.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(storeLocationRequested));
 			if (LocationService.exists(storeLocationRequested)) {
 
-				List<InventoryItem> storeInventory = inventoryService.getStoreInventory(storeLocationRequested);
+				// check if name matches
+				List<InventoryItem> storeInventory = inventoryService.getStoreInventory(storeLocationRequested.trim());
 
 				// for when the result is nothing because the store is empty of products
 				if (storeInventory == null || storeInventory.isEmpty()) {
@@ -119,13 +130,33 @@ public class InventoryController extends HttpServlet {
 						private static final long serialVersionUID = 1L;
 
 						{
-							put("error", "this store is completely empty");
+							put("error", "store " + storeLocationRequested + " is completely empty");
 						}
 					};
 
 					resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 				} else {
 
+					List<Map<String, String>> listMap = new ArrayList<>();
+
+					for (InventoryItem ii : storeInventory) {
+						Map<String, String> inventoryItemAsMap = new HashMap<>();
+						for (int i = 1; i <= 3; i++) {
+
+							if (i == 1)
+								inventoryItemAsMap.put("productName", ii.getProductName());
+							else if (i == 2)
+								inventoryItemAsMap.put("storeName", ii.getStoreName());
+							else
+								inventoryItemAsMap.put("quantity", String.valueOf(ii.getQuantity()));
+							
+							
+							double total = new LineItemService(new LineItemDAO()).getTotalPrice(new LineItem(ii.getProductName(),ii.getQuantity(), storeLocationRequested));
+							
+							inventoryItemAsMap.put("totalPrice", String.valueOf(total));
+						}
+
+					}
 					resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(storeInventory));
 
 				}

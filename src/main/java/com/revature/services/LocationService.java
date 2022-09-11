@@ -6,12 +6,6 @@ import com.revature.utils.LocalStorage;
 
 public class LocationService {
 
-	public static void main(String[] args) {
-		System.out.println(fixLocationName("captain"));
-		System.out.println(getAllLocations().containsKey(fixLocationName("captain")));
-		System.out.println(getAllLocations().containsKey("Captain Branch"));
-	}
-
 	private LocationService() {
 
 	}
@@ -23,23 +17,34 @@ public class LocationService {
 
 	public static boolean exists(String path) {
 
-		path = fixLocationName(path);
+		
 
 		return getAllLocations().containsKey(path);
 
 	}
 
 	private static String capitalize(String string) {
-		String cap = String.valueOf(string.charAt(0)).toUpperCase();
-		return cap + (string.substring(1).toLowerCase());
+		if (string.length() < 1)
+			return null;
+		else if (string.length() == 1)
+			return string.toUpperCase();
+		else
+			return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
 	}
 
 	public static String fixLocationName(String messyName) {
-		String[] locationArr = messyName.split("-");
+		// remove slash
+		String storeLocationRequested = messyName.replace("/", "");
+		// create String array of distinct words in path
+		String[] storeLocationArr = storeLocationRequested.split("-");
+		storeLocationRequested = "";
+		for (String wordInName : storeLocationArr) {
+			// capitalize each word
+			wordInName = capitalize(wordInName);
 
-		messyName = (locationArr.length > 1)
-				? (capitalize(locationArr[0]) + " " + capitalize(locationArr[1]) + " Branch")
-				: capitalize(messyName) + " Branch";
-		return messyName;
+			// add to String
+			storeLocationRequested += wordInName;
+		}
+		return storeLocationRequested + " Branch";
 	}
 }

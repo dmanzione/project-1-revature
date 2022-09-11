@@ -25,7 +25,7 @@ public class CaptainsLogger {
 
 	private void writeToFile(String message) {
 		try (FileWriter writer = new FileWriter(
-				"/Users/donato/Documents/workspace-spring-tool-suite-4-4.15.3.RELEASE/revPirate/src/main/resources/logs"
+				"/Users/user/git/Donato-Manzione-P1-new/src/main/resources/logs/"
 						+ LocalDateTime.now().toLocalDate() + ".log",
 				true)) {
 
