@@ -33,17 +33,17 @@ public class ConnectionFactory {
 	public Connection getConnection() {
 		logger.log(LogLevel.INFO, "Attempting to get SQL connection object from PostgreSQL Driver");
 		Connection conn = null;
+//		try {
+//			logger.log(LogLevel.INFO, "Attempting to retrieve information from database.properties file");
+//			properties.load(new FileReader(
+//					"/Users/user/git/Donato-Manzione-P1-new/src/main/resources/database/database.properties"));
+//		} catch (IOException e1) {
+//
+//			logger.log(LogLevel.ERROR, "ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
+//		}
 		try {
-			logger.log(LogLevel.INFO, "Attempting to retrieve information from database.properties file");
-			properties.load(new FileReader(
-					"/Users/user/git/Donato-Manzione-P1-new/src/main/resources/database/database.properties"));
-		} catch (IOException e1) {
-
-			logger.log(LogLevel.ERROR, "ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
-		}
-		try {
-			conn = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"),
-					properties.getProperty("password"));
+			conn = DriverManager.getConnection("jdbc:postgresql://pirate-supply-store.cbvhz1czalox.us-east-1.rds.amazonaws.com:5432/pirate_supply_store", "dmanzione",
+					"12345678");
 			return conn;
 		} catch (SQLException e) {
 			logger.log(LogLevel.ERROR, "SQL EXCEPTION PREVENTED MAKING THE CONNECTION TO DATABASE");

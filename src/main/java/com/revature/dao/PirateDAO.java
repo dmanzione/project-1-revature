@@ -15,6 +15,9 @@ import com.revature.utils.ConnectionFactory;
 public class PirateDAO {
 	CaptainsLogger logger = CaptainsLogger.getLogger();
 
+	public static void main(String[] args) {
+		new PirateDAO().getAllInstances().forEach(x-> System.out.println(x));
+	}
 	public List<Pirate> getAllInstances() {
 		String query = "SELECT * FROM pirates;";
 		List<Pirate> pirates = new ArrayList<>();
