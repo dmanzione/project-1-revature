@@ -1,11 +1,15 @@
 package com.revature.utils;
-
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class CaptainsLogger {
+	private static CaptainsLogger logger;
+
+	public static void main(String[] args) {
+		logger.log(LogLevel.INFO, "Hello");
+	}
+
 	public static enum LogLevel {
 		INFO, DEBUG, VERBOSE, WARNING, FATAL, ERROR
 	}
@@ -14,7 +18,12 @@ public class CaptainsLogger {
 	}
 
 	public static CaptainsLogger getLogger() {
-		return new CaptainsLogger();
+		if (logger == null) {
+			logger = new CaptainsLogger();
+
+		}
+
+		return logger;
 	}
 
 	public void log(LogLevel level, String message) {
@@ -23,20 +32,15 @@ public class CaptainsLogger {
 	}
 
 	private void writeToFile(String message) {
-		try (FileWriter writer = new FileWriter(
-				"/Users/user/Workspaces/MyEclipse/Donato-Manzione-P1/src/main/resources/logs/"
-						+ LocalDateTime.now().toLocalDate() + ".log",
-				true)) {
+		try (FileWriter writer = new FileWriter("/Users/user/Desktop/eclipse-workspace/PirateSupply/resources/logs/" + LocalDateTime.now().toLocalDate() + ".log", true)) {
 
 			writer.append(message + "\n");
-		} catch (FileNotFoundException e1) {
-			System.out.println(e1);
 		} catch (IOException e) {
-
 			System.out.println(e);
 		}
 
 	}
+
 
 	private class CaptainsLog {
 		LogLevel logLevel;

@@ -16,7 +16,6 @@ import com.revature.dao.LineItemDAO;
 import com.revature.dao.ProductDAO;
 import com.revature.models.InventoryItem;
 import com.revature.models.LineItem;
-import com.revature.models.Product;
 import com.revature.services.InventoryService;
 import com.revature.services.LineItemService;
 import com.revature.services.LocationService;

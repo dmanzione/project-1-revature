@@ -25,7 +25,6 @@ import com.revature.services.OrderService;
 import com.revature.utils.CaptainsLogger;
 import com.revature.utils.CaptainsLogger.LogLevel;
 
-
 public class OrdersController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -38,10 +37,11 @@ public class OrdersController extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		resp.setContentType("application/json");
 
-		if (session.getAttribute("pirate") == null) {
+		Pirate pirate = null;
+		if (session == null || (pirate = (Pirate) session.getAttribute("pirate")) == null) {
 			resp.setStatus(401);
 
-			logger.log(LogLevel.ERROR, "there are no products in any of the stores ");
+			logger.log(LogLevel.ERROR, "unauthorized user tried to get access");
 
 			Map<String, String> error = new HashMap<String, String>() {
 				private static final long serialVersionUID = 1L;
@@ -53,6 +53,7 @@ public class OrdersController extends HttpServlet {
 			resp.getWriter().write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(error));
 
 		} else {
+
 			List<LineItem> lineItems = new ArrayList<>();
 			String productNamesAsString = req.getParameter("productName");
 			String[] stringArr = productNamesAsString.split(",");
@@ -87,7 +88,7 @@ public class OrdersController extends HttpServlet {
 				inventoryService.reduceStockl(li);
 			}
 
-			Pirate pirate = (Pirate) session.getAttribute("pirate");
+			pirate = (Pirate) session.getAttribute("pirate");
 			Order order = new Order(storeLocation, pirate.getId());
 			order.setTotalPrice(totalPrice);
 			order.setLineItems(lineItems);
@@ -106,9 +107,9 @@ public class OrdersController extends HttpServlet {
 
 		ObjectMapper mapper = new ObjectMapper();
 		resp.setContentType("application/json");
-		
-		Pirate pirate =null;
-		if (session==null||(pirate =(Pirate) session.getAttribute("pirate"))==null) {
+
+		Pirate pirate = null;
+		if (session == null || (pirate = (Pirate) session.getAttribute("pirate")) == null) {
 			resp.setStatus(401);
 
 			logger.log(LogLevel.ERROR, "unauthorized user tried to get access");
@@ -124,10 +125,8 @@ public class OrdersController extends HttpServlet {
 
 		} else {
 
-			
-			
 			List<Order> orders = new OrderService(new OrderDAO()).getPirateOrders(pirate.getId());
-			resp.getWriter().println(mapper.writeValueAsString(orders)==null);
+			resp.getWriter().println(mapper.writeValueAsString(orders) == null);
 			if (orders == null || orders.isEmpty()) {
 				resp.setStatus(204);
 				resp.setContentType("application/json");

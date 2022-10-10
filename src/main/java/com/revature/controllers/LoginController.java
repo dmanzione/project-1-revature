@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PirateService pirateService = new PirateService(new PirateDAO());
 		resp.setContentType("application/json");
-		String loginPage = Templates.getLoginPage();
+	
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		if (!pirateService.recordExists(email)) {

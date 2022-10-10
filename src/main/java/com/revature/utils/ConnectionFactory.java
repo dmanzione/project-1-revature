@@ -1,15 +1,11 @@
 package com.revature.utils;
 
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import com.revature.utils.CaptainsLogger.LogLevel;
-
 
 public class ConnectionFactory {
 	private static CaptainsLogger logger = CaptainsLogger.getLogger();
@@ -44,14 +40,15 @@ public class ConnectionFactory {
 //			logger.log(LogLevel.ERROR, "ATTEMPT TO RETRIEVE DATABASE CREDENTIALS IN FILE DATABASE.PROPERTIES FAILED");
 //		}
 		try {
-			conn = DriverManager.getConnection("jdbc:postgresql://pirate-supply-store.cbvhz1czalox.us-east-1.rds.amazonaws.com:5432/pirate_supply_store", "dmanzione",
-					"12345678");
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://pirate-supply-store.cbvhz1czalox.us-east-1.rds.amazonaws.com:5432/pirate_supply_store",
+					"dmanzione", "12345678");
 			return conn;
 		} catch (SQLException e) {
 			logger.log(LogLevel.ERROR, "SQL EXCEPTION PREVENTED MAKING THE CONNECTION TO DATABASE");
 
 		}
-		
+
 		logger.log(LogLevel.INFO, "SQL CONNECTION MADE SUCCESSFULLY");
 		return conn;
 	}
