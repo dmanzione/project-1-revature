@@ -1,6 +1,6 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 
-<web-app>
+<web-app id="WebApp_1665424917529">
 	<display-name>Pirate Supply Chain</display-name>
 
 	<!-- controllers -->
@@ -20,11 +20,7 @@
 		<display-name>ProductController</display-name>
 		<servlet-class>com.revature.controllers.ProductController</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>ErrorController</servlet-name>
-		<display-name>ErrorController</display-name>
-		<servlet-class>com.revature.controllers.ErrorController</servlet-class>
-	</servlet>
+
 	<servlet>
 		<servlet-name>LocationController</servlet-name>
 		<display-name>LocationController</display-name>
@@ -61,11 +57,7 @@
 		<url-pattern>/</url-pattern>
 
 	</servlet-mapping>
-	<servlet-mapping>
 
-		<servlet-name>ErrorController</servlet-name>
-		<url-pattern>/ErrorController</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 
@@ -142,7 +134,7 @@
 		<url-pattern>/orders/</url-pattern>
 
 	</servlet-mapping>
-</web-app>
+
 
 	<!-- make each session last at most 1 hour -->
 	<session-config>
@@ -154,4 +146,4 @@
 		<welcome-file>index.html</welcome-file>
 
 	</welcome-file-list>
-   
+</web-app>
