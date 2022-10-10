@@ -9,6 +9,7 @@ import com.revature.models.LineItem;
 import com.revature.utils.CaptainsLogger;
 import com.revature.utils.CaptainsLogger.LogLevel;
 
+
 public class InventoryService {
 	CaptainsLogger logger = CaptainsLogger.getLogger();
 

@@ -14,8 +14,8 @@ import com.revature.dao.PirateDAO;
 import com.revature.models.Pirate;
 import com.revature.services.PirateService;
 import com.revature.utils.CaptainsLogger;
-import com.revature.utils.Templates;
 import com.revature.utils.CaptainsLogger.LogLevel;
+import com.revature.utils.Templates;
 
 public class LoginController extends HttpServlet {
 

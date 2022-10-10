@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.logging.Logger;
 
 public class CaptainsLogger {
 	public static enum LogLevel {
@@ -25,13 +24,13 @@ public class CaptainsLogger {
 
 	private void writeToFile(String message) {
 		try (FileWriter writer = new FileWriter(
-				"/Users/user/git/Donato-Manzione-P1/src/main/resources/logs/"
+				"/Users/user/Workspaces/MyEclipse/Donato-Manzione-P1/src/main/resources/logs/"
 						+ LocalDateTime.now().toLocalDate() + ".log",
 				true)) {
 
 			writer.append(message + "\n");
 		} catch (FileNotFoundException e1) {
-
+			System.out.println(e1);
 		} catch (IOException e) {
 
 			System.out.println(e);

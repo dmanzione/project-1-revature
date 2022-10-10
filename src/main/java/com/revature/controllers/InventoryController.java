@@ -1,5 +1,5 @@
 package com.revature.controllers;
-import java.util.Scanner;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +21,9 @@ import com.revature.services.InventoryService;
 import com.revature.services.LineItemService;
 import com.revature.services.LocationService;
 import com.revature.services.ProductService;
+
 import com.revature.utils.CaptainsLogger;
 import com.revature.utils.CaptainsLogger.LogLevel;
-
 public class InventoryController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
